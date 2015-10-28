@@ -2,7 +2,6 @@ var fs = require('fs');
 var _ = require('underscore');
 var mime = require('mime');
 var url = require('url');
-// var extend = require('extend');
 
 var defaultHeaders = {
   "access-control-allow-origin": "*",
@@ -17,7 +16,6 @@ var sendResponse = function(response, data, statusCode, customHeader){
   customHeader = customHeader || {};
   
   headers = _.extend({}, defaultHeaders, customHeader);
-  console.log(headers);
   response.writeHead(statusCode, headers);
   response.end(data);
 }
@@ -28,14 +26,11 @@ var actions = {
     if( request.url === '/'){ 
       request.url = '/index.html';
     }
-    console.log(request.url)
     var path = __dirname + '/../client' + request.url;
     fs.readFile(path, function (error, file){
       if( error ){
         throw error;
       }
-      //response.write(html);
-      //var ct = 
       var contentType = {
         'Content-Type': mime.lookup(path)
       }

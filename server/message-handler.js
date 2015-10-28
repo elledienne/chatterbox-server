@@ -1,13 +1,9 @@
 var _ = require('underscore');
-// var extend = require('extend');
 
 // used as a message storage
 // TODO: implement permanent storage
 var messages = {
-  results: [{ text: 'asd',
-  roomname: 'asd',
-  username: 'lalala',
-  objectId: 1445998324818 }]
+  results: []
 };
 
 var defaultHeaders = {
@@ -23,7 +19,6 @@ var sendResponse = function(response, data, statusCode, customHeader){
   customHeader = customHeader || {};
   
   headers = _.extend({}, defaultHeaders, customHeader);
-  console.log(defaultHeaders)
   response.writeHead(statusCode, headers);
   response.end(data);
 }
@@ -44,7 +39,6 @@ var actions = {
     
       var message = JSON.parse(data);
       message = storeMessage(message);
-      console.log(messages)
       var customHeader = {
         'Content-Type': 'text/plain'
       }
