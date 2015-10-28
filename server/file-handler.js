@@ -1,8 +1,8 @@
 var fs = require('fs');
-//var _ = require('underscore');
+var _ = require('underscore');
 var mime = require('mime');
 var url = require('url');
-var jq = require('jquery');
+// var extend = require('extend');
 
 var defaultHeaders = {
   "access-control-allow-origin": "*",
@@ -16,7 +16,7 @@ var sendResponse = function(response, data, statusCode, customHeader){
   statusCode = statusCode || 200;
   customHeader = customHeader || {};
   
-  headers = jq.extend(true, defaultHeaders, customHeader);
+  headers = _.extend({}, defaultHeaders, customHeader);
   console.log(headers);
   response.writeHead(statusCode, headers);
   response.end(data);
@@ -25,7 +25,7 @@ var sendResponse = function(response, data, statusCode, customHeader){
 var actions = {
   'GET': function(request, response){
     request.url = url.parse(request.url).pathname;
-    if( request.url === '/'){
+    if( request.url === '/'){ 
       request.url = '/index.html';
     }
     console.log(request.url)
@@ -35,9 +35,9 @@ var actions = {
         throw error;
       }
       //response.write(html);
-      var ct = mime.lookup(path)
+      //var ct = 
       var contentType = {
-        'Content-Type': ct
+        'Content-Type': mime.lookup(path)
       }
       sendResponse(response, file, 200, contentType);
     });

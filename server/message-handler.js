@@ -1,5 +1,5 @@
-//var _ = require('underscore');
-var jq = require('jquery');
+var _ = require('underscore');
+// var extend = require('extend');
 
 // used as a message storage
 // TODO: implement permanent storage
@@ -22,7 +22,7 @@ var sendResponse = function(response, data, statusCode, customHeader){
   statusCode = statusCode || 200;
   customHeader = customHeader || {};
   
-  headers = jq.extend(true, defaultHeaders, customHeader);
+  headers = _.extend({}, defaultHeaders, customHeader);
   console.log(defaultHeaders)
   response.writeHead(statusCode, headers);
   response.end(data);
